@@ -24,7 +24,7 @@
           <div class="card">
             
             <div class="header">
-                <h1 class=" text-center">WECAN</h1>
+                <h1 class=" text-center">BAPAK KAU</h1>
                 {{-- <img style="width:300px;" class="align-center" src="{{URL::asset('assets/images/logo.png')}}" alt="WECAN"> --}}
                 <p class="lead text-center" >Login to your account</p>
 
