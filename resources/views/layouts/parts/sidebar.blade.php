@@ -53,7 +53,7 @@
                                     </ul>
                             </li>
                             @endif
-                            @if (Auth::user()->can('panitia-mahasiswa.viewAny') or Auth::user()->can('panitia-dosen.viewAny'))
+                            @if (Auth::user()->can('panitia-mahasiswa.viewAny') or Auth::user()->can('absensi.viewAny') or Auth::user()->can('panitia-dosen.viewAny'))
                             <li>
                                 <a href="javascript: void(0);" class="has-arrow waves-effect">
                                     <div class="d-inline-block icons-sm mr-1"><i class="uim uim-layer-group"></i></div>
@@ -63,7 +63,7 @@
                                   @if (Auth::user()->can('panitia-dosen.viewAny'))
                                   <li><a href="{{route('panitia-dosen.index')}}">Panitia Dosen</a></li>
                                   @endif
-                                  @if (Auth::user()->can('panitia-mahasiswa.viewAny'))
+                                  @if (Auth::user()->can('panitia-mahasiswa.viewAny') or Auth::user()->can('absensi.viewAny'))
                                   <li><a href="{{route('panitia-mahasiswa.index')}}">Panitia Mahasiswa</a></li>
                                   @endif
                                 </ul>

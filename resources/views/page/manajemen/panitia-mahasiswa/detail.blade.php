@@ -1,13 +1,16 @@
 <div id="detail-panitia-mahasiswa" style="display:none">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs nav-justified nav-tabs-custom" role="tablist">
+      @if (Auth::user()->can('panitia-mahasiswa.viewAny'))
       <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" id="btn-panitia" href="#custom-panitia-mahasiswa" role="tab">
+        <a class="nav-link (Auth::user()->can('panitia-mahasiswa.viewAny') ?? active" data-toggle="tab" id="btn-panitia" href="#custom-panitia-mahasiswa" role="tab">
           <i class="fas fa-address-card mr-1"></i> <span class="d-none d-md-inline-block">Panitia Mahasiswa</span>
         </a>
       </li>
+      @endif
+      @if (Auth::user()->can('absensi.viewAny'))
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" id="btn-absensi" href="#custom-absensi" role="tab">
+        <a class="nav-link @if(Auth::user()->can('panitia-mahasiswa.viewAny') and Auth::user()->can('absensi.viewAny'))  mati @elseif(Auth::user()->can('absensi.viewAny')) active @endif" data-toggle="tab" id="btn-absensi" href="#custom-absensi" role="tab">
           <i class="fas fa-address-card mr-1"></i> <span class="d-none d-md-inline-block">List Absensi</span>
         </a>
       </li>
@@ -16,10 +19,12 @@
           <i class="mdi mdi-account-details mr-1 align-middle"></i> <span class="d-none d-md-inline-block">Presensi</span>
         </a>
       </li>
+      @endif
     </ul>
     <!-- Tab panes -->
     <div class="tab-content p-3">
-      <div class="tab-pane active" id="custom-panitia-mahasiswa" role="tabpanel">
+      @if (Auth::user()->can('panitia-mahasiswa.viewAny'))
+      <div class="tab-pane  (Auth::user()->can('panitia-mahasiswa.viewAny') ?? active" id="custom-panitia-mahasiswa" role="tabpanel">
         <h4 class="header-title title-mahasiswa">List Panitia Mahasiswa</h4>
         @if (Auth::user()->can('panitia-mahasiswa.create'))
         <button id="buttontambahpanitia" style="display:none;margin:15px 0px" onclick="tambahpanitia()" type="button" class="btn btn-primary"><i class="fa fa-plus"> Tambah Panitia</i> </button>
@@ -42,7 +47,9 @@
           </tbody>
         </table>
       </div>
-      <div class="tab-pane" id="custom-absensi" role="tabpanel">
+      @endif
+      @if (Auth::user()->can('absensi.viewAny'))
+      <div class="tab-pane @if(Auth::user()->can('panitia-mahasiswa.viewAny') and Auth::user()->can('absensi.viewAny'))  mati @elseif(Auth::user()->can('absensi.viewAny')) active @endif" id="custom-absensi" role="tabpanel">
         <h4 class="header-title title-absensi">List Absensi</h4>
         @if (Auth::user()->can('absensi.create'))
         <button id="buttontambahabsen" style="display:none;margin:15px 0px" onclick="tambahabsen()" type="button" class="btn btn-primary"><i class="fa fa-plus"> Tambah Absensi</i> </button>
@@ -86,5 +93,6 @@
         </table>
 
       </div>
+      @endif
     </div>
   </div>

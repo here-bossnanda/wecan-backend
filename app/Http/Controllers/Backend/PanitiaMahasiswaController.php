@@ -25,9 +25,21 @@ class PanitiaMahasiswaController extends Controller
     public function __construct()
   {
     $this->middleware('auth');
-    $this->middleware('can:panitia-mahasiswa.viewAny');
+    $this->middleware(function ($request, $next) {  
+      if (Auth::check() && Auth::user()->can('panitia-mahasiswa.viewAny')) {
+        $this->middleware('can:panitia-mahasiswa.viewAny');
+      }else if(Auth::check() && Auth::user()->can('absensi.viewAny')){
+        $this->middleware('can:absensi.viewAny');
+      }else{
+          abort(401);
+        $this->middleware('can:panitia-mahasiswa.viewAny');
+        $this->middleware('can:absensi.viewAny');
+      }
+    return $next($request);
+    });
   }
   public function index(){
+    // dd(Auth::check());
     $wecan = AktivasiWecan::where('status',1)->exists();
     if ($wecan) {
       // $wecan = AktivasiWecan::where('status',1)->exists();  
@@ -74,25 +86,25 @@ class PanitiaMahasiswaController extends Controller
       (Auth::user()->can('panitia-mahasiswa.update') and Auth::user()->can('panitia-mahasiswa.delete')) ?
       $row[]= '
       <div class="btn-group">
-        <button onclick="editForm('.$list->id.')" class=" btn btn-warning">
-          <span class="fas fa-pencil-alt"></span></button></div>
-          <div class="btn-group">
-            <button onclick="deleteData('.$list->id.')" class=" btn btn-danger">
-              <span class="far fa-trash-alt"></span></button></div>'
-              : ((Auth::user()->can('panitia-mahasiswa.delete')) ?
-              $row[]= '
-              <div class="btn-group">
-              <button onclick="deleteData(\''.$list->id.'\')" class=" btn btn-danger">
-              <span class="far fa-trash-alt"></span></button></div>'
-              : ((Auth::user()->can('panitia-mahasiswa.update')) ? 
-              $row[]= '<div class="btn-group">
-              <button onclick="editForm(\''.$list->id.'\')" class=" btn btn-warning">
-              <span class="fas fa-pencil-alt"></span></button></div>'
-              : 
-              $row[]= '<div class="btn-group">
-              <button class=" btn btn-info">
-              <span class="fas fa-pencil-alt"></span> Tidak ada aksi</button></div>'));
-        $data[]=$row;
+      <button onclick="editForm('.$list->id.')" class=" btn btn-warning">
+      <span class="fas fa-pencil-alt"></span></button></div>
+      <div class="btn-group">
+      <button onclick="deleteData('.$list->id.')" class=" btn btn-danger">
+      <span class="far fa-trash-alt"></span></button></div>'
+      : ((Auth::user()->can('panitia-mahasiswa.delete')) ?
+      $row[]= '
+      <div class="btn-group">
+      <button onclick="deleteData(\''.$list->id.'\')" class=" btn btn-danger">
+      <span class="far fa-trash-alt"></span></button></div>'
+      : ((Auth::user()->can('panitia-mahasiswa.update')) ? 
+      $row[]= '<div class="btn-group">
+      <button onclick="editForm(\''.$list->id.'\')" class=" btn btn-warning">
+      <span class="fas fa-pencil-alt"></span></button></div>'
+      : 
+      $row[]= '<div class="btn-group">
+      <button class=" btn btn-info">
+      <span class="fas fa-pencil-alt"></span> Tidak ada aksi</button></div>'));
+      $data[]=$row;
         }
             return DataTables::of($data)->escapeColumns([])->make(true);
     }
