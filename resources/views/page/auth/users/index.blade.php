@@ -252,6 +252,8 @@
     $('.modal-title').text('Tambah Data Users');
     $('.dosengone').hide();
     $('.mahasiswagone').hide();
+    $('.rolegone').hide();
+    $('.rolecreate').show();
     $('#password').attr("required",true);
     $('#password1').attr("required",true);
     $('select#id_roles_users').empty();
@@ -261,7 +263,6 @@
     $('select#id_mahasiswa_users').prop("required",false);
     $('#username_register').prop("readonly",false);
     $('#rolecreate').show();
-    $('#role_register').prop("required",true);
     $('#roleedit').hide();
     $('#role_register_edit').prop("required",false);
   }
@@ -271,7 +272,9 @@
     if (value === "admin") {
       $('.dosengone').slideUp();
       $('.mahasiswagone').slideUp();
+      $('.rolegone').slideDown();
       $('select#id_dosen_users').empty();
+      $('select#id_roles_users').empty();
       $('select#id_mahasiswa_users').empty();
       $('select#id_dosen_users').prop("required",false);
       $('select#id_mahasiswa_users').prop("required",false);
@@ -280,14 +283,18 @@
     }else if (value === "dosen") {
       $('.dosengone').slideDown();
       $('.mahasiswagone').hide();
+      $('.rolegone').slideDown();
       $('select#id_dosen_users').empty();
+      $('select#id_roles_users').empty();
       $('select#id_mahasiswa_users').empty();
       $('select#id_dosen_users').prop("required",true);
       $('select#id_mahasiswa_users').prop("required",false);
     }else if (value === "mahasiswa"){
       $('.mahasiswagone').slideDown();
       $('.dosengone').hide();
+      $('.rolegone').slideDown();
       $('select#id_dosen_users').empty();
+      $('select#id_roles_users').empty();
       $('select#id_mahasiswa_users').empty();
       $('select#id_dosen_users').prop("required",false);
       $('select#id_mahasiswa_users').prop("required",true);
@@ -305,13 +312,35 @@
       success : function(data){
         $('#modal-users').modal('show');
         $('.modal-title').text('Edit Data Users');
+        $('.rolecreate').hide();
+        $('.rolegone').show();
+        $('.dosengone').hide();
+        $('.mahasiswagone').hide();
         $('#id_users').val(data.users.id);
         $('#username').val(data.users.username);
         $('#email').val(data.users.email);
         $('#password').attr("required",false);
         $('#password1').attr("required",false);
+        $('select#id_dosen_users').prop("required",false);
+        $('select#id_mahasiswa_users').prop("required",false);
         $('select#id_roles_users').select2('trigger','select',{'data':{'id':data.users.roles[0].id,'text':data.users.roles[0].name}});
+        if($.trim(data.users.panitia_mahasiswa)){
+          $('.mahasiswagone').show();
+          $('.dosengone').hide();
+          $('select#id_dosen_users').empty();
+          $('select#id_mahasiswa_users').select2('trigger','select',{'data':{'id':data.users.panitia_mahasiswa.id,'text':data.users.panitia_mahasiswa.mahasiswa.name}});
+          $('select#id_dosen_users').prop("required",false);
+          $('select#id_mahasiswa_users').prop("required",true);
+        }
 
+        if($.trim(data.users.panitia_dosen)){
+          $('.dosengone').show();
+          $('.mahasiswagone').hide();
+          $('select#id_dosen_users').empty();
+          $('select#id_dosen_users').select2('trigger','select',{'data':{'id':data.users.panitia_dosen.id,'text':data.users.panitia_dosen.dosen.name}});
+          $('select#id_mahasiswa_users').prop("required",false);
+          $('select#id_dosen_users').prop("required",true);
+        }
       },
       error : function(){
         toastr.warning('Tidak dapat menampilkan data!', 'Error Alert', {timeOut: 3000});
@@ -418,8 +447,6 @@
               swal("Done!", "Data Berhasil di hapus!", "success");
               toastr.success('Data Berhasil di hapus!', 'Success Alert', {timeOut: 4000});
               table.ajax.reload();
-              table2.ajax.reload();
-              table3.ajax.reload();
             }
           },
           error : function(data){

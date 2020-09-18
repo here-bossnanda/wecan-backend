@@ -23,29 +23,24 @@
                 <span class="help-block with-errors"></span>
               </div>
             </div>
-            <div class="form-group" id="roleedit" style="display:none">
-            <label for="role_register_edit" class="col-md-5 control-label" >Role</label>
-            <div class="col-md-12">
-              <input type="text" id="role_register_edit" class="form-control" placeholder="Username" name="role_register_edit" readonly autofocus required>
-              <span class="help-block with-errors"></span>
-            </div>
-          </div>
-            <div class="form-group">
-                <label for="role_register" class="col-md-5 control-label" >Role</label>
-                <div class="col-md-12">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <select class="form-control" onchange="getComboA(this)" name="role_register" id="role_register" required>
-                        <option selected disabled>--Pilih Role--</option>
-                        <option value="admin">Admin</option>
-                        <option value="mahasiswa">Mahasiswa</option>
-                        <option value="dosen">Dosen</option>
-                      </select>
-                      <span class="help-block with-errors"></span>
-                    </div>
+          <div class="rolecreate" style="display:none">
+            <div class="form-group" >
+              <label for="role_register" class="col-md-5 control-label" >Role</label>
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <select class="form-control" onchange="getComboA(this)" name="role_register" id="role_register">
+                      <option selected disabled>--Pilih Role--</option>
+                      <option value="admin">Admin</option>
+                      <option value="mahasiswa">Mahasiswa</option>
+                      <option value="dosen">Dosen</option>
+                    </select>
+                    <span class="help-block with-errors"></span>
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
               <div class="dosengone" style="display:none">
                 <div class="form-group">
                   <label for="id_dosen_users" class="col-md-5 control-label">Pilih Dosen</label>
@@ -72,12 +67,14 @@
                 </div>
               </div>
             </div>
+            <div class="rolegone" style="display:none">
             <div class="form-group">
                 <label for="id_roles_users" class="col-md-5 control-label" >Assign Role</label>
                 <div class="col-md-12">
                   <select class="form-control" name="id_roles_users" id="id_roles_users" style="width:100%;" required></select>
                   <span class="help-block with-errors"></span>
                 </div>
+              </div>
               </div>
               <div class="form-group">
                 <label for="status_aktif" class="col-md-5 control-label" >Status Aktif</label>

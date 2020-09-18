@@ -126,7 +126,7 @@ class UserController extends Controller
         ->update(['user_id'=> $user->id,
         'updated_at'=>now()
         ]);
-      }else if(!empty($guru)){
+      }else if(!empty($dosen)){
         DB::table('panitia_dosens')
         ->where('id',$request->id_dosen_users)
         ->update(['user_id'=> $user->id,
@@ -142,18 +142,19 @@ class UserController extends Controller
   }
 
   public function edit($id){
-    $user = User::with(['roles'])->findOrFail($id); //MENGAMBIL DATA BERDASARKAN ID
-    $role = Role::all();
-    return response()->json(['status' => 'success', 'users' => $user,'role' => $role], 200);
+    $user = User::with('roles','panitia_mahasiswa.mahasiswa','panitia_dosen.dosen')->findOrFail($id); //MENGAMBIL DATA BERDASARKAN ID
+    return response()->json(['status' => 'success', 'users' => $user], 200);
   }
   public function update($id,Request $request){
     DB::beginTransaction();
     try {
+      // dd($request->all());
       $User = User::findOrFail($id); //MENGAMBIL DATA YANG AKAN DI UBAH
+      $User->username = $request['username'];
       $User->email = $request['email'];
-      if(!empty($request['password'])) $request->password = bcrypt($request['password']);
+      if(!empty($request['password'])) $User->password = bcrypt($request['password']);
       $User->update();
-      $User->roles()->sync($request->role_id);
+      $User->roles()->sync($request->id_roles_users);
       DB::commit();
       return response()->json(['status' => 'success'], 200);
     } catch (\Exception $e) {

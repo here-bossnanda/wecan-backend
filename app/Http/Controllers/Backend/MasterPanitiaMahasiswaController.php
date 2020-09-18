@@ -39,11 +39,8 @@ class MasterPanitiaMahasiswaController extends Controller
   public function listData(){
     $datas = MasterPanitiaMahasiswa::with('jurusan')->orderBy('created_at','desc')->get();
     $data = array();
-    $no =0;
     foreach ($datas as $list) {
-      $no++;
       $row = array();
-      $row[]= $no;
       $row[]= $list->npm;
       $row[]= ($list->foto) ? '<img src="assets/images/mahasiswa/'.$list->foto.'" alt="" class="rounded-circle header-profile-user" alt="Header Avatar">'. $list->name : '<img src="assets/images/users/default.png" alt="" class="rounded-circle header-profile-user" alt="Header Avatar">'. $list->name;
       $row[]= $list->email;

@@ -29,4 +29,10 @@
 <link href="{{asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 <!-- Sweet Alert -->
 <link href="{{asset('assets/libs/sweet-alert2/sweetalert2.min.css')}}" rel="stylesheet" type="text/css">
+<style media="screen">
+.modal-body{
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+</style>
 @stack('style')

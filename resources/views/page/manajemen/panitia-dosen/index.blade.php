@@ -290,7 +290,7 @@ function initailizeSelect2(){
             results: data.items.map(function (item) {
               return {
                 id: item.id,
-                text:item.name + " - " + item.divisi.name
+                text:item.name
               };
             }),
             pagination: {

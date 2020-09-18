@@ -1,12 +1,5 @@
 @extends('layouts.app')
-@push('style')
-<style media="screen">
-.modal-body{
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
-}
-</style>
-@endpush
+
 @section('content')
 <!-- ============================================================== -->
 <!-- Start right Content here -->
@@ -75,7 +68,6 @@
             <table class="table table-bordered dt-responsive table-striped nowrap table-dosen" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
               <thead>
                 <tr>
-                  <th>No</th>
                   <th>NIP</th>
                   <th>Nama</th>
                   <th>Email</th>

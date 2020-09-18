@@ -38,11 +38,11 @@ class User extends Authenticatable
   }
 
     public function panitia_mahasiswa(){
-        return $this->belongsTo('App\PanitiaMahasiswa');
+        return $this->belongsTo('App\PanitiaMahasiswa','id', 'user_id');
     }
 
     public function panitia_dosen(){
-        return $this->belongsTo('App\PanitiaDosen');
+        return $this->belongsTo('App\PanitiaDosen','id','user_id');
     }
     
 

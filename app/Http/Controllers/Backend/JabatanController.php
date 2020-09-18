@@ -38,24 +38,24 @@ class JabatanController extends Controller
         (Auth::user()->can('jabatan.update') and Auth::user()->can('jabatan.delete')) ?
         $row[]= '
         <div class="btn-group">
-          <button onclick="editForm('.$list->id.')" class=" btn btn-warning">
-            <span class="fas fa-pencil-alt"></span></button></div>
-            <div class="btn-group">
-              <button onclick="deleteData('.$list->id.')" class=" btn btn-danger">
-                <span class="far fa-trash-alt"></span></button></div>'
-                : ((Auth::user()->can('jabatan.delete')) ?
-                $row[]= '
-                <div class="btn-group">
-                <button onclick="deleteData(\''.$list->id.'\')" class=" btn btn-danger">
-                <span class="far fa-trash-alt"></span></button></div>'
-                : ((Auth::user()->can('jabatan.update')) ? 
-                $row[]= '<div class="btn-group">
-                <button onclick="editForm(\''.$list->id.'\')" class=" btn btn-warning">
-                <span class="fas fa-pencil-alt"></span></button></div>'
-                : 
-                $row[]= '<div class="btn-group">
-                <button class=" btn btn-info">
-                <span class="fas fa-pencil-alt"></span> Tidak ada aksi</button></div>'));
+        <button onclick="editForm('.$list->id.')" class=" btn btn-warning">
+        <span class="fas fa-pencil-alt"></span></button></div>
+        <div class="btn-group">
+        <button onclick="deleteData('.$list->id.')" class=" btn btn-danger">
+        <span class="far fa-trash-alt"></span></button></div>'
+        : ((Auth::user()->can('jabatan.delete')) ?
+        $row[]= '
+        <div class="btn-group">
+        <button onclick="deleteData(\''.$list->id.'\')" class=" btn btn-danger">
+        <span class="far fa-trash-alt"></span></button></div>'
+        : ((Auth::user()->can('jabatan.update')) ? 
+        $row[]= '<div class="btn-group">
+        <button onclick="editForm(\''.$list->id.'\')" class=" btn btn-warning">
+        <span class="fas fa-pencil-alt"></span></button></div>'
+        : 
+        $row[]= '<div class="btn-group">
+        <button class=" btn btn-info">
+        <span class="fas fa-pencil-alt"></span> Tidak ada aksi</button></div>'));
         $data[]=$row;
       }
       return DataTables::of($data)->escapeColumns([])->make(true);
@@ -78,6 +78,7 @@ class JabatanController extends Controller
         if($count){
           return response()->json(['status' => 'false'], 200);
         }
+        // dd($request->all());
         Jabatan::create([
         'name' => $request->name,
         'divisi_id' => $request->divisi_id,
