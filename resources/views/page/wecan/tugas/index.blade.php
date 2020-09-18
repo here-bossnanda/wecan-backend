@@ -205,7 +205,7 @@
         $('.modal-title').text('Edit Data Atribut');
         $('#tugas_id').empty();
         $('#tugas_id').val(data.tugas.id);
-        $('#nama').val(data.name);
+        $('#name').val(data.name);
         $('select#aktivasi_wecan_id').select2('trigger','select',{'data':{'id':data.tugas.aktivasi_wecan_id,'text':data.tugas.wecan.name}}); 
         $("#deskripsi").summernote("code", data.tugas.deskripsi);
       },
