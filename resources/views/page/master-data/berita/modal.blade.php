@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-berita" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <form class="form form-horizontal" data-toggle="validator"  method="post" enctype="multipart/form-data">
           {{csrf_field()}} {{method_field('POST')}}
